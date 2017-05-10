@@ -25,12 +25,12 @@ var neaterboard = new Neaterboard();
 If you have redis-server running on the same machine as node, then the default Neaterboard constructure will create a default RedisClient with default port and host. If you want to supply configuration for your RedisClient, look into [node_redis#rediscreateclient] (https://github.com/NodeRedis/node_redis#rediscreateclient)
 
 ### Adding and removing periodic leaderboards
-`addLeaderboards(options)`
+`addLeaderboards([options])`
 
 ```javascript
 neaterboard.addLeaderboards({daily: true, weekly:true, monthly:true});
 ```
-removeLeaderboards(options);
+`removeLeaderboards([options])`
 ```javascript
 neaterboard.removeLeaderboards({daily: true, weekly:true, monthly:true});
 ```
@@ -56,7 +56,7 @@ neaterboard.insertScore('fred', 100, (err, res) => {
 ```
 
 ### Getting the leaderboard
-`getLeaderboard(callback, options)`
+`getLeaderboard(callback[, options])`
 
 options:
 * leaderboard: daily | weekly | monthly. Default is set to all-time
@@ -86,7 +86,7 @@ options:
 
 
 ### Getting the rank of a user on a leaderboard
-`getRank(userId, callback, options)`
+`getRank(userId, callback[, options])`
 Returns the zero-based rank of the user.
 
 options:
@@ -106,7 +106,7 @@ neaterboard.getRank('fred', (err, rank) => {
 ```
 
 #### Retrieving user's best score
-`getUserBestScore(userId, callback, getOptions, returnOptions) `
+`getUserBestScore(userId, callback [, getOptions] [, returnOptions]) `
 
 getOptions:
 * leaderboard: daily | weekly | monthly. Default is set to all-time
