@@ -1,0 +1,29 @@
+{
+  "name": "neaterboard",
+  "version": "1.0.0",
+  "description": "a neater leaderboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "leaderboard",
+    "scoreboard",
+    "redis"
+  ],
+  "author": "thanh-nm",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.4.0",
+    "log4js": "^1.1.1",
+    "node-cron": "^1.1.3",
+    "redis": "^2.7.1"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/thanh-nm/neaterboardjs"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
+}
