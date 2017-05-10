@@ -1,6 +1,6 @@
 # neaderboardjs
 
-Leaderboards that besides the all-time leaderboard support also periodic leaderboards: daily, weekly, monthly options backed by [Redis](http://redis.io) in NodeJS.
+A NodeJS leaderboard module that besides the all-time leaderboard supports also periodic leaderboards: daily, weekly, monthly options backed by [Redis](http://redis.io).
 
 ## Installation
 
