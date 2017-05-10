@@ -10,8 +10,8 @@ check out the [Redis quickstart](https://redis.io/topics/quickstart).
 
 ## Setup
 ```javascript
-var neaterboard = require('neaterboard');
-var Neaterboard = neaterboard.Neaterboard;
+var neaterboardjs = require('neaterboard');
+var Neaterboard = neaterboardjs.Neaterboard;
 ```
 
 ### Creating a leaderboard
@@ -19,7 +19,7 @@ var Neaterboard = neaterboard.Neaterboard;
 Create a new leaderboard. This will create an all-time leaderboard.
 
 ```javascript
-neaterboard = new Neaterboard ();
+var neaterboard = new Neaterboard();
 ```
 
 If you have redis-server running on the same machine as node, then the default Neaterboard constructure will create a default RedisClient with default port and host. If you want to supply configuration for your RedisClient, look into [node_redis#rediscreateclient] (https://github.com/NodeRedis/node_redis#rediscreateclient)
@@ -56,20 +56,38 @@ neaterboard.insertScore('fred', 100, (err, res) => {
 ```
 
 ### Getting the leaderboard
-`getLeaderboard(fromIndex, toIndex, callback, options)`
+`getLeaderboard(callback, options)`
 
 options:
 * leaderboard: daily | weekly | monthly. Default is set to all-time
 * featureId: a game feature or none
+* fromRank: zero-based start index of the leaderboard to return
+* toRank: zero-based end index of the leaderboard to return. If fromRank and toRank is not given, the function returns the entire leaderboard
 
 ```javascript
-neaterboard.getLeaderboard(0, 10, (err, userIds) => {
+neaterboard.getLeaderboard((err, userIds) => {
   console.log('userIds='+userIds);
-}, {leaderboard:'daily', featureId:'quiz 1'});
+});
 ```
+
+```javascript
+neaterboard.getLeaderboard((err, userIds) => {
+  console.log('userIds='+userIds);
+}, {leaderboard:'daily', featureId:'quiz 1', fromRank:5, toRank:10});
+```
+
+`getAroundMeLeaderboard(userId, callback, options)`
+Returns the leaderboard within a given range around the rank of the given user.
+
+options:
+* leaderboard: daily | weekly | monthly. Default is set to all-time
+* featureId: a game feature or none
+* range: a positive number. If no range is specified, the returned leanderboard contains all ranks +/- 10 around the given user
+
 
 ### Getting the rank of a user on a leaderboard
 `getRank(userId, callback, options)`
+Returns the zero-based rank of the user.
 
 options:
 * leaderboard: daily | weekly | monthly. Default is set to all-time
@@ -95,7 +113,7 @@ getOptions:
 * featureId: a game feature or none
 
 returnOptions:
-If no returnOptions are passed, only the rawScore is returned, otherwise, a json object contains the chosen options is returned.
+If no returnOptions are passed, only the rawScore is returned, otherwise the function returns a json object contains the data specified in returnOptions.
 * rawScore: the inserted rawScore
 * scoreData: any additional score data in JSON string or a simple string
 * date: default is set to the inserted date
